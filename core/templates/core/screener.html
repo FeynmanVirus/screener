@@ -1,0 +1,102 @@
+{% extends 'core/layout.html' %}
+{% load static %}
+
+{% block style %}
+{% endblock %}
+
+
+{% block main %}
+
+<h1 class="mt-4 text-gray-900 text-center dark:text-white font-bold text-1xl md:text-2xl xl:text-3xl">TradeWise Analysis</h1>
+
+<div class="w-3/5 text-center flex mx-auto sm:flex-1 mt-8">
+{% for screener in screeners %}
+    {% if current == screener.title %}
+    <div class="">
+    <a href="{% url 'core:screener' title=screener.title %}" class="ms-auto text-gray-900 bg-gray-300 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">{{screener.title}}</a>
+    </div>
+    {% else %}
+    <div class="">
+    <a href="{% url 'core:screener' title=screener.title %}" class="ms-auto text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">{{screener.title}}</a>
+    </div>
+    {% endif %}
+{% endfor %}
+
+</div>
+
+<div class="relative mt-8 overflow-x-auto text-center sm:rounded-lg">
+    <table class="w-full overflow-scroll h-28  ms-auto me-auto lg:w-3/5 text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Sr. No
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    NSE Code
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Company Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    % change
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Close 
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Volume
+                </th>
+            </tr>
+        </thead>
+        <tbody class="">
+            {% for stock in stocks %}
+            <tr class="border-b2 even:bg-gray-50 odd:bg-white even:dark:bg-gray-700 odd:dark:bg-gray-800">
+                <td class="px-6 py-4">
+                    {{forloop.counter}}
+                </td>
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{stock.nsecode}}
+                </th>
+                <td class="px-6 py-4">
+                    <a href="https://www.tradingview.com/chart/?symbol=NSE%3A{{stock.nsecode}}" target="_blank" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{stock.name}}</a>
+                </td>
+                <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                    {{stock.per_chg}}
+                </td>
+                <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                    {{stock.close}}
+                </td>
+                <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                    {{stock.volume}}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if stocks.has_other_pages %}
+    <ul class="inline-flex -space-x-px mt-4 ms-auto me-auto text-sm">
+    {% if stocks.has_previous %}
+      <li class="page-item"><a class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" href="?page={{ stocks.previous_page_number }}">Previous</a></li>
+    {% else %}
+      <li class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-gray-300 border border-gray-300 rounded-l-lg  dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"><span class="page-link">Previous</span></li>
+    {% endif %}
+    {% for i in stocks.paginator.page_range %}
+      {% if stocks.number == i %}
+        <li class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li class="page-item"><a class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if stocks.has_next %}
+      <li class="page-item"><a class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" href="?page={{ stocks.next_page_number }}">Next</a></li>
+    {% else %}
+      <li class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-gray-300 border border-gray-300 rounded-r-lg  dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"><span class="page-link">Next</span></li>
+    {% endif %}
+  </ul>
+  {% endif %}
+  </div>
+</div>
+
+
+
+{% endblock %}
