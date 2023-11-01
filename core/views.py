@@ -107,3 +107,12 @@ def contact(request):
 
 def terms(request):
     return render(request, 'core/terms.html')
+
+def options(request):
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36','Accept-Encoding': 'gzip, deflate, br','Accept-Language': 'en-US,en;q=0.9,hi;q=0.8'}
+    url = "https://www.nseindia.com/api/option-chain-indices?symbol=NIFTY"
+    data = requests.get(url, headers = headers).json()  
+    print(data['filtered'])
+    return render(request, 'core/options.html', {
+        'data': data['filtered'],
+    })

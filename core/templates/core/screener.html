@@ -9,7 +9,7 @@
 
 <h1 class="mt-4 text-gray-900 text-center dark:text-white font-bold text-1xl md:text-2xl xl:text-3xl">TradeWise Analysis</h1>
 
-<div class="w-3/5 text-center flex mx-auto sm:flex-1 mt-8">
+<div class="w-3/5 text-center flex whitespace-nowrap mx-auto  mt-8">
 {% for screener in screeners %}
     {% if current == screener.title %}
     <div class="">
@@ -19,14 +19,17 @@
     <div class="">
     <a href="{% url 'core:screener' title=screener.title %}" class="ms-auto text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">{{screener.title}}</a>
     </div>
+<div class="">
+    <a href="{% url 'core:screener' title=screener.title %}" class="ms-auto text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">{{screener.title}}</a>
+    </div>
     {% endif %}
 {% endfor %}
 
 </div>
 
-<div class="relative mt-8 overflow-x-auto text-center sm:rounded-lg">
-    <table class="w-full overflow-scroll h-28  ms-auto me-auto lg:w-3/5 text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+<div class="relative mt-8 overflow-scroll text-center sm:rounded-lg" style="height: 50vh;">
+    <table class="w-full ms-auto me-auto lg:w-3/5 text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs sticky text-gray-700 top-0 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     Sr. No

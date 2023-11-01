@@ -771,6 +771,10 @@ select {
   position: relative;
 }
 
+.sticky {
+  position: sticky;
+}
+
 .inset-0 {
   inset: 0px;
 }
@@ -980,10 +984,6 @@ select {
   height: 100vh;
 }
 
-.w-1\/5 {
-  width: 20%;
-}
-
 .w-10 {
   width: 2.5rem;
 }
@@ -998,6 +998,10 @@ select {
 
 .w-3\/5 {
   width: 60%;
+}
+
+.w-32 {
+  width: 8rem;
 }
 
 .w-4 {
@@ -1200,8 +1204,8 @@ select {
   overflow: hidden;
 }
 
-.overflow-x-auto {
-  overflow-x: auto;
+.overflow-scroll {
+  overflow: scroll;
 }
 
 .overflow-y-auto {
@@ -1340,12 +1344,6 @@ select {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
-.from-yellow-200 {
-  --tw-gradient-from: #fef08a var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(254 240 138 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
 .via-red-300 {
   --tw-gradient-to: rgb(252 165 165 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), #fca5a5 var(--tw-gradient-via-position), var(--tw-gradient-to);
@@ -1365,10 +1363,6 @@ select {
 
 .to-yellow-200 {
   --tw-gradient-to: #fef08a var(--tw-gradient-to-position);
-}
-
-.to-gold {
-  --tw-gradient-to: #D4AF37 var(--tw-gradient-to-position);
 }
 
 .p-2 {
@@ -1831,28 +1825,12 @@ select {
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   }
 
-  .dark\:from-yellow-100 {
-    --tw-gradient-from: #fef9c3 var(--tw-gradient-from-position);
-    --tw-gradient-to: rgb(254 249 195 / 0) var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-  }
-
-  .dark\:from-yellow-300 {
-    --tw-gradient-from: #fde047 var(--tw-gradient-from-position);
-    --tw-gradient-to: rgb(253 224 71 / 0) var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-  }
-
   .dark\:to-indigo-600 {
     --tw-gradient-to: #4f46e5 var(--tw-gradient-to-position);
   }
 
   .dark\:to-zinc-800 {
     --tw-gradient-to: #27272a var(--tw-gradient-to-position);
-  }
-
-  .dark\:to-gold {
-    --tw-gradient-to: #D4AF37 var(--tw-gradient-to-position);
   }
 
   .dark\:text-blue-500 {
@@ -1974,10 +1952,6 @@ select {
 
   .sm\:max-w-md {
     max-width: 28rem;
-  }
-
-  .sm\:flex-1 {
-    flex: 1 1 0%;
   }
 
   .sm\:grid-cols-2 {
