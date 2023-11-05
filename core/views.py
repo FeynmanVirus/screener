@@ -68,27 +68,34 @@ def pay(request, price):
         'price': price
     })
 
-def screener(request, title):
+def screener(request, title, clause):
     if request.user.is_anonymous:
         return render(request, 'core/error.html')
     if not request.user.subscribed:
         return render(request, 'core/error.html')
-    screeners = Screener.objects.all().values('title', 'clause')
-    stocks = get_data(request, title)
+
+    # list of clauses
+    clauses = ['cash', 'nifty', 'future']
+    # screeners
+    screeners = Screener.objects.all().values('title', 'cash_clause', 'nifty_clause', 'future_clause')
+    stocks = get_data(request, title, clause)
+
+    print(clause)
 
     return render(request, 'core/screener.html', {
         'screeners': screeners,
         'stocks': stocks,
-        'current': title,
+        'current_title': title,
+        'current_clause': clause,
+        'clauses': clauses,
     })
 
 
-def get_data(request, title):
-    print(title)
+def get_data(request, title, clause):    
     data = {}
+    clause = f"{clause}_clause"
     with requests.Session() as s:
-        data['scan_clause'] = Screener.objects.filter(title=title).values('clause')[0]['clause']
-        print(data)
+        data['scan_clause'] = Screener.objects.filter(title=title).values(clause)[0][clause]
         r = s.get('https://chartink.com/screener/')
         soup = bs(r.content, 'lxml')
         s.headers['X-CSRF-TOKEN'] = soup.select_one('[name=csrf-token]')['content']

@@ -35,4 +35,6 @@ class Transactions(models.Model):
 
 class Screener(models.Model):
     title = models.CharField(max_length=100)
-    clause = models.CharField(max_length=1000)
+    nifty_clause = models.CharField(max_length=1000, default='')
+    future_clause = models.CharField(max_length=1000, default='')
+    cash_clause = models.CharField(max_length=1000, default='')

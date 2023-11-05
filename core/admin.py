@@ -20,11 +20,11 @@ class ScreenerAdmin(admin.ModelAdmin):
         (
             None,
             {
-                "fields": ["title", "clause"]
+                "fields": ["title", "nifty_clause", "future_clause", "cash_clause"]
             }
         )
     ]
-    list_display = ['title', 'clause']
+    list_display = ['title', 'nifty_clause', 'future_clause', 'cash_clause']
 
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Screener, ScreenerAdmin)    
