@@ -1,7 +1,39 @@
 {% extends 'core/layout.html' %}
 {% load static %}
 
-{% block style %}
+{% block styling %}
+
+.blue { color: #185875; }
+.yellow { color: #FFF842; }
+
+.container-table td {
+	  font-weight: normal;
+	  font-size: 1em;
+  -webkit-box-shadow: 0 2px 2px -2px #0E1119;
+	   -moz-box-shadow: 0 2px 2px -2px #0E1119;
+	        box-shadow: 0 2px 2px -2px #0E1119;
+}
+
+.container-table tr:hover {
+-webkit-box-shadow: 0 6px 6px -6px #0E1119;
+	   -moz-box-shadow: 0 6px 6px -6px #0E1119;
+	        box-shadow: 0 6px 6px -6px #0E1119;
+}
+
+.container-table td:hover {
+  background-color: #FFF842;
+  color: #403E10;
+  font-weight: bold;
+  
+  box-shadow: #7F7C21 -1px 1px, #7F7C21 -2px 2px, #7F7C21 -3px 3px, #7F7C21 -4px 4px, #7F7C21 -5px 5px, #7F7C21 -6px 6px;
+  transform: translate3d(6px, -6px, 0);
+  
+  transition-delay: 0s;
+	  transition-duration: 0.4s;
+	  transition-property: all;
+  transition-timing-function: line;
+}
+
 {% endblock %}
 
 
@@ -24,20 +56,20 @@
 </div>
 <div class="w-3/5 text-center flex whitespace-nowrap mx-auto  mt-8">
 {% for clause in clauses %}
-    {% if current_clause == clause %}
+    {% if current_clause|lower == clause|lower %}
     <div class="">
     <a href="{% url 'core:screener' title=current_title clause=clause %}" class="ms-auto text-gray-900 bg-gray-300 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-md text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">{{clause}}</a>
     </div>
     {% else %}
     <div class="">
-    <a href="{% url 'core:screener' title=current_title clause=clause %}" class="ms-auto text-gray-900 bg-gray-300 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium text-sm rounded-md px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-800">{{clause}}</a>
+    <a href="{% url 'core:screener' title=current_title clause=clause %}" class="ms-auto text-gray-900 bg-gray-50 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium text-sm rounded-md px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-800">{{clause}}</a>
     </div>
     {% endif %}
 {% endfor %}
 </div>
 
 <div class="relative mt-8 overflow-scroll text-center sm:rounded-lg" style="height: 50vh;">
-    <table class="w-full ms-auto me-auto lg:w-3/5 text-sm text-left text-gray-500 dark:text-gray-400">
+    <table class="container-table w-full ms-auto me-auto lg:w-3/5 text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs sticky text-gray-700 top-0 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
@@ -55,9 +87,6 @@
                 <th scope="col" class="px-6 py-3">
                     Close 
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    Volume
-                </th>
             </tr>
         </thead>
         <tbody class="">
@@ -66,9 +95,9 @@
                 <td class="px-6 py-4">
                     {{forloop.counter}}
                 </td>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{stock.nsecode}}
-                </th>
+                </td>
                 <td class="px-6 py-4">
                     <a href="https://www.tradingview.com/chart/?symbol=NSE%3A{{stock.nsecode}}" target="_blank" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{stock.name}}</a>
                 </td>
@@ -77,9 +106,6 @@
                 </td>
                 <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                     {{stock.close}}
-                </td>
-                <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                    {{stock.volume}}
                 </td>
             </tr>
             {% endfor %}

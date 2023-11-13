@@ -75,7 +75,7 @@ def screener(request, title, clause):
         return render(request, 'core/error.html')
 
     # list of clauses
-    clauses = ['cash', 'nifty', 'future']
+    clauses = ['Cash', 'Nifty500', 'Future']
     # screeners
     screeners = Screener.objects.all().values('title', 'cash_clause', 'nifty_clause', 'future_clause')
     stocks = get_data(request, title, clause)
@@ -93,7 +93,11 @@ def screener(request, title, clause):
 
 def get_data(request, title, clause):    
     data = {}
-    clause = f"{clause}_clause"
+    clause = f"{clause}_clause".lower()
+    print(clause)
+    if clause == 'nifty500_clause':
+        clause = 'nifty_clause'
+
     with requests.Session() as s:
         data['scan_clause'] = Screener.objects.filter(title=title).values(clause)[0][clause]
         r = s.get('https://chartink.com/screener/')
