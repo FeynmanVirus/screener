@@ -45,7 +45,7 @@
 {% for screener in screeners %}
     {% if current_title == screener.title %}
     <div class="">
-    <a href="{% url 'core:screener' title=screener.title clause=current_clause %}" class="ms-auto text-gray-900 bg-gray-300 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">{{screener.title}}</a>
+    <a href="{% url 'core:screener' title=screener.title clause=current_clause %}" class="active-screener ms-auto text-gray-900 bg-gray-300 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">{{screener.title}}</a>
     </div>
     {% else %}
     <div class="">
@@ -58,7 +58,7 @@
 {% for clause in clauses %}
     {% if current_clause|lower == clause|lower %}
     <div class="">
-    <a href="{% url 'core:screener' title=current_title clause=clause %}" class="ms-auto text-gray-900 bg-gray-300 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-md text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">{{clause}}</a>
+    <a href="{% url 'core:screener' title=current_title clause=clause %}" class="active-clause ms-auto text-gray-900 bg-gray-300 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-md text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">{{clause}}</a>
     </div>
     {% else %}
     <div class="">
@@ -69,12 +69,9 @@
 </div>
 
 <div class="relative mt-8 overflow-y-auto overflow-x-auto text-center sm:rounded-lg" style="height: 50vh;">
-    <table class="container-table w-full ms-auto me-auto lg:w-3/5 text-sm text-left text-gray-500 dark:text-gray-400">
+    <table id="mytable" class="container-table w-full ms-auto me-auto lg:w-3/5 text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs sticky text-gray-700 top-0 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    Sr. No
-                </th>
                 <th scope="col" class="px-6 py-3">
                     NSE Code
                 </th>
@@ -89,12 +86,9 @@
                 </th>
             </tr>
         </thead>
-        <tbody class="">
+        <tbody>
             {% for stock in stocks %}
-            <tr class="border-b2 even:bg-gray-50 odd:bg-white even:dark:bg-gray-700 odd:dark:bg-gray-800">
-                <td class="px-6 py-4">
-                    {{forloop.counter}}
-                </td>
+            <tr class="stock-row border-b2 even:bg-gray-50 odd:bg-white even:dark:bg-gray-700 odd:dark:bg-gray-800">
                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{stock.nsecode}}
                 </td>

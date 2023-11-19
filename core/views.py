@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
+from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from datetime import date, timedelta
 
@@ -90,11 +91,11 @@ def screener(request, title, clause):
         'clauses': clauses,
     })
 
-
+@csrf_exempt
 def get_data(request, title, clause):    
+    print(request.method)
     data = {}
     clause = f"{clause}_clause".lower()
-    print(clause)
     if clause == 'nifty500_clause':
         clause = 'nifty_clause'
 
@@ -107,6 +108,9 @@ def get_data(request, title, clause):
         stocks = dict(r) 
         stocks = sorted(r['data'], key=lambda x: x["per_chg"], reverse=True)
 
+        if request.method == 'POST':
+            print(title, clause)
+            return JsonResponse(stocks, safe=False)
 
         return stocks 
         
